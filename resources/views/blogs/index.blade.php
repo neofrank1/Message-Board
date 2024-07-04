@@ -16,13 +16,39 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="card">
-                                    <div class="card-body shadow-lg">
+                                    <div class="card-body shadow-lg overflow-auto" style="max-width: 1000px; max-height: 1000px">
                                         @foreach ($blogs as $blog)
-                                            <div class="row ms-2 me-2 mb-4">
+                                            <div class="row-mb mb-4">
                                                 <div class="card">
-                                                    <h5 class="card-header">{{$blog->title}}</h5>
+                                                    <div class="card-header">
+                                                        <h5 class="card-title mt-2 fw-bolder">{{$blog->title}}</h5>
+                                                    </div>
                                                     <div class="card-body">
                                                         {{$blog->content}}
+                                                    </div>
+                                                    <div class="card-footer bg-light">
+                                                       <div class="row">
+                                                            <div class="d-flex flex-row px-0">
+                                                                <div class="p-1">
+                                                                    <a class="btn btn-light btn-like" href="javascript:void(0)">
+                                                                        <i class="fa fa-heart fs-5" id="like-icon"></i>
+                                                                        <span class="mt-1 fs-6 like-count">0</span>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="p-1">
+                                                                    <a class="btn btn-light btn-comment shadow-none" href="javascript:void(0)">
+                                                                        <i class="fa fa-comment fs-5"></i>
+                                                                        <span class="mt-1 fs-6 comment-count">0</span>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="p-1">
+                                                                    <a class="btn btn-light btn-share shadow-none" href="javascript:void(0)">
+                                                                        <i class="fa fa-share fs-5"></i>
+                                                                        <span class="mb-1 fs-6">Share</span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                       </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -73,36 +99,21 @@
             </div>
         </div>
     </div>
-@endsection
+    @extends('blogs.modal')
 
-<!-- Modal for Insert Blog -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Blog Create</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('blogs.store') }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <label class="form-label" for="content">Title:</label>
-                            <input type="text" class="form-control" name="title" id="title">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label" for="description">Content:</label>
-                            <textarea class="form-control" name="content" id="content" aria-label="With textarea" style="resize: none"></textarea>
-                        </div>
-                        <input type="hidden" value="{{Auth::id()}}" name="user_id">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Post</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
+<!-- JS Area -->
+    <script type="module">
+        $(document).ready(function() {
+            $('.btn-like').click(function() {
+                $(this).toggleClass('text-primary');
+                if ($(this).hasClass('text-primary')) {
+                    $('.like-count').text('1');
+                } else {
+                    $('.like-count').text('0');
+                }
+            });
+        });
+    </script>
+    </script>
+@endsection
