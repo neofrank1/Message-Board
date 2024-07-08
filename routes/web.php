@@ -21,5 +21,6 @@ Route::post('/blogs/create',[BlogController::class, 'create'])->name('blogs.crea
 Route::post('/blogs/store',[BlogController::class, 'store'])->name('blogs.store');
 
 // User Routes
-Route::get('/profile',[UserController::class, 'index'])->name('users.profile');
-Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::get('/profile/{id}',[UserController::class, 'index'])->name('users.profile');
+Route::get('/users/setting/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::post('/users/update', [UserController::class, 'update'])->name('users.update');

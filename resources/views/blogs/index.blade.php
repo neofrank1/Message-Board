@@ -49,6 +49,14 @@
                                                                 </div>
                                                             </div>
                                                        </div>
+                                                       <div class="row mb-2">
+                                                            <div class="col-12 d-none comment-box">
+                                                                <div class="input-group">
+                                                                    <textarea class="form-control custom-control" rows="1" name="comment" id="comment" aria-label="With textarea" style="resize:none"></textarea>     
+                                                                    <span class="input-group-addon btn btn-primary"><i class="fa fa-pen mt-1"></i></span>
+                                                                </div>
+                                                            </div>
+                                                       </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,12 +113,26 @@
 <!-- JS Area -->
     <script type="module">
         $(document).ready(function() {
+            // Like Button Functionality 
             $('.btn-like').click(function() {
                 $(this).toggleClass('text-primary');
+                var likeCount = $(this).closest('.card-footer').find('.like-count');
                 if ($(this).hasClass('text-primary')) {
-                    $('.like-count').text('1');
+                    likeCount.text('1');
                 } else {
-                    $('.like-count').text('0');
+                    likeCount.text('0');
+                }
+            });
+
+            // Comment Button Functionality
+            $('.btn-comment').click(function() {
+                var commentBox = $(this).closest('.card-footer').find('.comment-box');
+                if (commentBox.hasClass('d-none')) {
+                    commentBox.removeClass('d-none');
+                    commentBox.show();
+                } else {
+                    commentBox.addClass('d-none');
+                    commentBox.hide();
                 }
             });
         });

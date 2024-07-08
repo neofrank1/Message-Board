@@ -39,7 +39,7 @@
                             <a class="nav-link" href="{{ route('blogs.index') }}">{{ __('Blogs') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.profile') }}">{{ __('Profile') }}</a>
+                            <a class="nav-link" href="{{ route('users.profile', ['id' => Auth::user()->id]) }}">{{ __('Profile') }}</a>
                         </li>
                     </ul>
                     @endguest
