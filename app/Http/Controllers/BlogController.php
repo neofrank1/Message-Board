@@ -44,9 +44,10 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $blog)
+    public function edit($id,Blog $blog)
     {
-        //
+        $blog_details = Blog::find($id);
+        return json_encode($blog_details);
     }
 
     /**

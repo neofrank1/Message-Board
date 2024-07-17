@@ -19,6 +19,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/blogs',[BlogController::class, 'index'])->name('blogs.index');
 Route::post('/blogs/create',[BlogController::class, 'create'])->name('blogs.create');
 Route::post('/blogs/store',[BlogController::class, 'store'])->name('blogs.store');
+Route::get('/blogs/edit/{id}',[BlogController::class, 'edit'])->name('blogs.edit');
 
 // User Routes
 Route::get('/profile/{id}',[UserController::class, 'index'])->name('users.profile');

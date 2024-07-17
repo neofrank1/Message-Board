@@ -21,7 +21,25 @@
                                             <div class="row-mb mb-4">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="card-title mt-2 fw-bolder">{{$blog->title}}</h5>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <h5 class="card-title mt-2 fw-bolder">{{$blog->title}}</h5>
+                                                            </div>
+                                                                <div class="col-6 text-end">
+                                                                    <div class="dropdown">
+                                                                        <a class="border-none shadow-none text-dark mt-2" type="button" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="fas fa-ellipsis-v fw-bolder fs-5"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <?php if($blog->user_id == Auth::user()->id):?>
+                                                                                <li><button class="dropdown-item btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#EditBlog" data-id="{{$blog->id}}">Edit</button></li>
+                                                                                <li><button class="dropdown-item" type="button">Delete</button></li>
+                                                                            <?php endif;?>
+                                                                                <li><button class="dropdown-item" type="button">Report</button></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                     <div class="card-body">
                                                         {{$blog->content}}
@@ -135,7 +153,19 @@
                     commentBox.hide();
                 }
             });
+
+            $('.btn-edit').on('click', function() {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/blogs/edit/' + id,
+                    type: 'GET',
+                    success: function(response) {
+                        $('.title').val(response.title);
+                        $('.content').val(response.content);
+                        $('#blog_id').val(id);
+                    }
+                });
+            });
         });
-    </script>
     </script>
 @endsection
