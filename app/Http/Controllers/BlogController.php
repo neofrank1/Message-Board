@@ -44,9 +44,10 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Blog $blog)
+    public function edit($id, Blog $blog)
     {
-        //
+        $blog_details = Blog::find($id);
+        return response()->json($blog_details);
     }
 
     /**
@@ -54,14 +55,24 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        if (empty($request->input('_token'))) {
+            return false;
+        }
+        $blog = Blog::find($request->input('blog_id')); // Find the blog with the given id
+        $blog->update($request->except('_token')); // Update the blog with the request data
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!'); // Redirect to the index page with a success message
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
-    {
-        //
+    public function destroy(Request $request, Blog $blog)
+    { 
+        if (empty($request->input('_token')) && $request->input('_method') != 'DELETE') {
+            return false;
+        }
+        $blog = Blog::findOrFail($request->input('blog_id')); // Find the blog with the given id
+        $blog->delete(); // Delete the blog
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully!'); // Redirect to the index page with a success message
     }
 }
