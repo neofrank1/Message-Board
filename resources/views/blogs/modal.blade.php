@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Content:</label>
-                            <textarea class="form-control" name="content" id="content" aria-label="With textarea" style="resize: none"></textarea>
+                            <textarea class="form-control" rows="4" name="content" id="content" aria-label="With textarea" style="resize: none"></textarea>
                         </div>
                         <input type="hidden" value="{{Auth::id()}}" name="user_id">
                     </div>
@@ -38,7 +38,7 @@
                 <h1 class="modal-title fs-5" id="EditBlog">Blog Edit</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('blogs.store') }}" method="POST">
+            <form action="{{ route('blogs.update') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -48,9 +48,37 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label" for="description">Content:</label>
-                            <textarea class="form-control content" value="" name="content" id="content" aria-label="With textarea" style="resize: none"></textarea>
+                            <textarea class="form-control content" value="" rows="4" name="content" id="content" aria-label="With textarea" style="resize: none"></textarea>
                         </div>
                         <input type="hidden" value="" name="blog_id" id="blog_id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete Blog -->
+<div class="modal fade" id="DeleteBlog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DeleteBlog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DeleteBlog">Blog Edit</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('blogs.delete') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            Are your sure to delete this blog?
+                            <input type="hidden" value="" name="blog_id" id="blog_id">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

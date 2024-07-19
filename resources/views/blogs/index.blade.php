@@ -3,6 +3,7 @@
     @if(session('success'))
         <div class="container">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-square"></i>
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -23,7 +24,7 @@
                                                     <div class="card-header">
                                                         <div class="row">
                                                             <div class="col-6">
-                                                                <h5 class="card-title mt-2 fw-bolder">{{$blog->title}}</h5>
+                                                                <h5 class="card-title mt-2 fw-bolder">{{$blog->title}}</h5> <!-- Content Title -->
                                                             </div>
                                                                 <div class="col-6 text-end">
                                                                     <div class="dropdown">
@@ -33,7 +34,7 @@
                                                                         <ul class="dropdown-menu">
                                                                             <?php if($blog->user_id == Auth::user()->id):?>
                                                                                 <li><button class="dropdown-item btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#EditBlog" data-id="{{$blog->id}}">Edit</button></li>
-                                                                                <li><button class="dropdown-item" type="button">Delete</button></li>
+                                                                                <li><button class="dropdown-item btn-delete" type="button" data-bs-toggle="modal" data-bs-target="#DeleteBlog" data-id="{{$blog->id}}">Delete</button></li>
                                                                             <?php endif;?>
                                                                                 <li><button class="dropdown-item" type="button">Report</button></li>
                                                                         </ul>
@@ -41,8 +42,8 @@
                                                                 </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
-                                                        {{$blog->content}}
+                                                    <div class="card-body"> <!--Content Area -->
+                                                        {!! nl2br($blog->content) !!}
                                                     </div>
                                                     <div class="card-footer bg-light">
                                                        <div class="row">
@@ -165,6 +166,11 @@
                         $('#blog_id').val(id);
                     }
                 });
+            });
+
+            $('.btn-delete').on('click', function() {
+                var id = $(this).data('id');
+                $('#DeleteBlog').find('#blog_id').val(id);
             });
         });
     </script>
